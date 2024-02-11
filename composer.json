@@ -1,0 +1,19 @@
+{
+    "name": "mateusbmp/easyaccept",
+    "type": "library",
+    "autoload": {
+        "psr-4": {
+            "MateusBMP\\EasyAccept\\": "src/"
+        }
+    },
+    "authors": [
+        {
+            "name": "Mateus Pereira",
+            "email": "bmp.mateus@gmail.com"
+        }
+    ],
+    "require": {
+        "php": "^7.4",
+        "symfony/console": "^7.0"
+    }
+}
