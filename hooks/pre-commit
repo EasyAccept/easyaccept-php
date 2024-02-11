@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/bin/bash
 
 if git rev-parse --verify HEAD >/dev/null 2>&1
 then
@@ -7,6 +7,12 @@ else
 	# Initial commit: diff against an empty tree object
 	against=$(git hash-object -t tree /dev/null)
 fi
+
+# Check for PHP syntax errors
+for i in $(git diff --cached --name-only --diff-filter=A)
+do 
+	[[ $i == *.php ]] && php -l "$i"
+done
 
 # If you want to allow non-ASCII filenames set this variable to true.
 allownonascii=$(git config --type=bool hooks.allownonascii)
