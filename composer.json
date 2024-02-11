@@ -3,7 +3,8 @@
     "type": "library",
     "autoload": {
         "psr-4": {
-            "EasyAccept\\": "src/"
+            "EasyAccept\\": "src/",
+            "TestApp\\": "testapp/app/"
         }
     },
     "authors": [
