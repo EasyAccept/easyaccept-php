@@ -28,7 +28,12 @@ class EasyFile
         $file = file_get_contents($this->file);
         $instructions = explode(PHP_EOL, $file);
         foreach ($instructions as $instruction) {
+            // Ignore empty lines
             if (empty($instruction)) {
+                continue;
+            }
+            // If the line starts with a comment, ignore it
+            if (substr($instruction, 0, 1) === "#") {
                 continue;
             }
             $this->instructions[] = new EasyInstruction($instruction);
