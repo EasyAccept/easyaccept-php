@@ -2,6 +2,7 @@
 namespace EasyAccept\Testsuite\Interpreter;
 
 use EasyAccept\Testsuite\Exception\EasyAcceptException;
+use EasyAccept\Testsuite\Exception\SyntaxException;
 
 class EasyArgument
 {
@@ -64,13 +65,23 @@ class EasyArgument
     }
 
     /**
-     * Prepare value removing double or single quotes.
+     * Prepare value removing double or single quotes from start and end of the string.
      * 
      * @param string $value Value to be prepared
      * @return string
      */
     private function _prepare_value(string $value): string
     {
-        return str_replace(["'", '"'], "", $value);
+        if ( (substr($value, 0, 1) === '"' && substr($value, -1) === "'") || 
+             (substr($value, 0, 1) === "'" && substr($value, -1) === '"') ) {
+            throw new SyntaxException("Argument value cannot start with a double quote and end with a single quote or vice-versa.");
+        }
+
+        if ( (substr($value, 0, 1) === '"' && substr($value, -1) === '"') || 
+             (substr($value, 0, 1) === "'" && substr($value, -1) === "'") ) {
+            $value = substr($value, 1, -1);
+        }
+
+        return $value;
     }
 }
