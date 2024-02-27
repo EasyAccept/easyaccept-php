@@ -6,46 +6,14 @@ use EasyAccept\Testsuite\Exception\EasyAcceptException;
 class EasyInstruction
 {
     /**
-     * @var string $command Command to be executed
-     */
-    private string $command;
-
-    /**
-     * @var array<\EasyAccept\Testsuite\Interpreter\EasyArgument> $arguments Arguments to be passed to the command
-     */
-    private array $arguments;
-
-    /**
-     * @param string $instruction Instruction to be interpreted
+     * @param string $command                  Command to be executed
+     * @param array<EasyArgument> $arguments   Arguments to be passed to the command
      * @throws \EasyAccept\Testsuite\Exception\EasyAcceptException
      */
     public function __construct(
-        private string $instruction
-    ) {
-        if (empty($instruction)) {
-            throw new EasyAcceptException("Instruction cannot be empty");
-        }
-        $this->parseInstruction();
-    }
-
-    private function parseInstruction(): void
-    {
-        $instruction = explode(' ', $this->instruction);
-        $this->command = array_shift($instruction);
-        $this->arguments = $this->parseArguments($instruction);
-    }
-
-    private function parseArguments(array $arguments): array
-    {
-        $parsedArguments = [];
-        foreach ($arguments as $argument) {
-            $argument = explode('=', $argument, 2);
-            $parsedArguments[] = (count($argument) == 1) ? 
-                new EasyArgument($argument[0]) : 
-                new EasyNamedArgument($argument[0], $argument[1]);
-        }
-        return $parsedArguments;
-    }
+        private string $command,
+        private array $arguments,
+    ) {}
 
     public function command(): string
     {

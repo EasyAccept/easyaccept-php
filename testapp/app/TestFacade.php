@@ -5,6 +5,6 @@ class TestFacade
 {
     public function us1_command1(): void
     {
-        echo "us1_command1" . PHP_EOL;
+        echo "us1_command1 called" . PHP_EOL;
     }
 }
